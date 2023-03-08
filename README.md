@@ -10,8 +10,8 @@ Based on:
 1. Clone this repository:
 
 ```
-git clone git@github.com:ENSCMA2/overtext.git
-cd overtext
+git clone git@github.com:ENSCMA2/overtext-history.git
+cd overtext-history
 ```
 
 2. If you use anaconda or a similar library, deactivate it:
