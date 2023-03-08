@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OverText</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script>
+  <style>
+
+    b{
+      opacity: 0.4;
+    }
+
+    table.dataTable tbody tr.selected > * {
+      box-shadow: inset 0 0 0 9999px yellow;
+      color: black;
+    }
+
+    table.dataTable.hover > tbody > tr.selected:hover > *, table.dataTable.display > tbody > tr.selected:hover > * {
+      box-shadow: inset 0 0 0 9999px yellow;
+    }
+
+    #help {
+      color:#ffffff !important; 
+      margin-left: 3px;
+      position: absolute; 
+      top: 50%; 
+      -ms-transform: translateY(-50%); 
+      transform: translateY(-50%);
+    }
+
+    .overlay {
+      position: fixed;
+      display: none;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.8);
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    .overlay_text{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 20px;
+      color: white;
+      transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+    }
+
+    table.dataTable.compact tbody td {
+    padding: 2px;
+  }
+  </style>
+</head>
+
+<body>
+  <div class="ui fixed inverted menu">
+    <div class="ui icon" data-tooltip="Click header to sort table, Shift-click to multi-sort. Click rows to select, Shift-click to select a range of rows. To assign codes, select sentences and then click a code." 
+  data-position="bottom left" data-variation="basic">
+    <i class="large question circle outline icon" id="help"></i>
+  </div>
+    <div class="ui container">
+      <a href="/" class="header item">
+        <!-- <img class="logo" src="/static/logo.png"> -->
+        OverText
+      </a>
+      <a href="/" class="item">Home</a>
+      <div class="ui simple dropdown item">
+        Entity <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="/">people</a>
+          <a class="item" href="#">woman</a>
+          <a class="item" href="#">Kardashian</a>
+        </div>
+      </div>
+      <a href="/adj" class="item">Adjective Noun</a>
+    </div>
+  </div>
+  
+  <div style="margin-top: 80px; width: 94% !important;" class="ui container">
+    <h1 class="ui center aligned header">Adjective Noun Table</h1>
+    <div class="ui grid">
+      <div class="thirteen wide column">
+        <table id="sentenceTable" class="hover nowrap compact">
+            <thead>
+              <tr>
+                  <th>id</th>
+                  <th>pre</th>
+                  <th>det</th>
+                  <th>adj</th>
+                  <th>noun</th>
+                  <th>post</th>
+                  <th>codes</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for sentence in ansentence_list %}
+                <tr>
+                  <td>{{ sentence.id }}</td>
+                  <td data-order="{{ sentence.pre.sort }}">{{ sentence.pre.display }}</td>
+                  <td>{{ sentence.det}}</td>
+                  <td>{{ sentence.adj }}</td>
+                  <td>{{ sentence.noun }}</td>
+                  <td>{{ sentence.post }}</td>
+                  <td></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+
+
+      <div class="three wide column">
+        <form action="/add_code" method="post">
+          <div>
+            <label for="title">Code</label>
+            <input type="text" name="title" placeholder="Create new code here" maxlength="13" required>
+            <input type="hidden" class="form_text" name="text_ids">
+            <button type="submit" class="add_code_buttons">Add</button>
+          </div>
+        </form>
+        <br>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    $(document).ready(function () {
+    var table = $('#sentenceTable').DataTable({
+      paging: false,
+      info: false,
+      select: {
+        style: 'multi+shift',
+        selector: 'td'
+      },
+      stateSave: true,
+      // scrollX: true,
+      initComplete: function (settings, json) {  // Fix misalignment between header and body
+    $("#sentenceTable").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");            
+  },
+      columnDefs: [
+    {
+        targets: 0,
+        visible: false,
+        searchable: false
+    },
+    {
+        targets: 1,
+        className: 'dt-right'
+    },
+    {
+        targets: 2,
+        className: 'dt-center'
+    }
+    ],
+    fnDrawCallback: function( oSettings ) { // Text gray-out after sorting
+      var last_pre = [];
+      var last_det = "";
+      var last_adj = [];
+      var last_noun = [];
+      var last_post = [];
+      this.api().rows().every( function () {
+        var d = this.data();
+        // modify pre
+        var new_pre = "</b>";
+        var tmp_pre = (d[1]["display"]).replaceAll("<b>", "").replaceAll("</b>", "").split(" ").reverse();
+        let i = 0;
+        while (i < last_pre.length && i < tmp_pre.length && last_pre[i] == tmp_pre[i]) {
+          new_pre = " " + tmp_pre[i] + new_pre;
+          i++;
+        }
+        new_pre = "<b>" + new_pre;
+        while (i < tmp_pre.length) {
+          new_pre = " " + tmp_pre[i] + new_pre;
+          i++;
+        }
+        last_pre = tmp_pre;
+        // modify det
+        var new_det = "";
+        var tmp_det = d[2].replaceAll("<b>", "").replaceAll("</b>", "").toLowerCase();
+        if (tmp_det == last_det) {
+          new_det = "<b>" + tmp_det + "</b>";
+        } else {
+          new_det = tmp_det;
+        }
+        last_det = tmp_det;
+
+        var new_adj = "<b>";
+        var tmp_adj = d[3].replaceAll("<b>", "").replaceAll("</b>", "").split(" ");
+        let k = 0;
+        while (k < last_adj.length && k < tmp_adj.length && last_adj[k] == tmp_adj[k]) {
+          new_adj += (tmp_adj[k] + " ");
+          k++;
+        }
+        new_adj += "</b>";
+        while (k < tmp_adj.length) {
+          new_adj += (tmp_adj[k] + " ");
+          k++;
+        }
+        last_adj = tmp_adj;
+
+        var new_noun = "<b>";
+        var tmp_noun = d[4].replaceAll("<b>", "").replaceAll("</b>", "").split(" ");
+        let m = 0;
+        while (m < last_noun.length && m < tmp_noun.length && last_noun[m] == tmp_noun[m]) {
+          new_noun += (tmp_noun[m] + " ");
+          m++;
+        }
+        new_noun += "</b>";
+        while (m < tmp_noun.length) {
+          new_noun += (tmp_noun[m] + " ");
+          m++;
+        }
+        last_noun = tmp_noun;
+
+        // modify post
+        var new_post = "<b>";
+        var tmp_post = d[5].replaceAll("<b>", "").replaceAll("</b>", "").split(" ");
+        let n = 0;
+        while (n < last_post.length && n < tmp_post.length && last_post[n] == tmp_post[n]) {
+          new_post += (tmp_post[n] + " ");
+          n++;
+        }
+        new_post += "</b>";
+        while (n < tmp_post.length) {
+          new_post += (tmp_post[n] + " ");
+          n++;
+        }
+        last_post = tmp_post;
+        // this.invalidate(); // invalidate the data DataTables has cached for this row
+        this.data([d[0], {"display": new_pre, "@data-order": d[1]["@data-order"]}, new_det, new_adj, new_noun, new_post, d[6]]);
+      } );
+    },
+    });
+
+      // When it is requested that code be assigned to sentences, get all selected sentences
+      // $('.add_code_buttons').on('click', function() {
+      //   var rst = "";
+      //   var data = table.rows('.selected').data();
+      //   for (let i = 0; i < data.length; i++) {
+      //     rst += data[i][0] + ",";
+      //   }
+      //   var elements = document.getElementsByClassName('form_text');
+      //   for (var element of elements){
+      //     element.value = rst;
+      //   }
+      // });
+
+});
+
+    function overlay_on(code_id) {
+      document.getElementById("overlay_"+code_id).style.display = "block";
+    }
+
+    function overlay_off(code_id) {
+      document.getElementById("overlay_"+code_id).style.display = "none";
+    }
+
+    
+
+  </script>
+
+</body>
+</html>

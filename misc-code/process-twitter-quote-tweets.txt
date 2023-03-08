@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+
+import sys
+import json
+import random
+import argparse
+
+
+parser = argparse.ArgumentParser(description='Extract quotes from jsonl file.')
+parser.add_argument('jsonl',
+                    help='file of quote tweets')
+parser.add_argument('url',
+                    help='URL of the original tweet')
+parser.add_argument('maxtweets', type=int,
+                    help='Maximum number of tweets to save')
+args = parser.parse_args()
+
+to_print = []
+for line in open(args.jsonl):
+    data = json.loads(line)
+    for tweet in data['data']:
+###        print(tweet, file=sys.stderr)
+        quote_url = None
+        url_map = {}
+        text = tweet['text']
+        if tweet["source"] == "IFTTT":
+            continue
+        if args.url != 'none':
+            if 'entities' not in tweet:
+                continue
+            if 'urls' not in tweet['entities']:
+                continue
+            for url in tweet['entities']['urls']:
+                if url["expanded_url"].lower() == args.url.lower():
+                    quote_url = url['url']
+###                    print("Found:", quote_url, "for", args.url, file=sys.stderr)
+                url_map[url['url']] = url['display_url']
+        if quote_url is not None and quote_url in text:
+            text = ''.join(text.split(quote_url))
+        for url, display in url_map.items():
+###            print("text:", text, file=sys.stderr)
+###            print("url: ", url, file=sys.stderr)
+###            print("new: ", display, file=sys.stderr)
+            text = display.join(text.split(url))
+
+        text = ' '.join(text.split("\n"))
+        if text.startswith("RT @"):
+            # Skip retweets
+            continue
+        to_print.append(text)
+
+random.shuffle(to_print)
+for line in to_print[:args.maxtweets]:
+    print(line)

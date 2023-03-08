@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta id="jinja_data" data-first="{{sentence_list|length}}" data-meta="6"> <!-- use html as a proxy to store data used by JS, 6 is the # of meta cols-->
+  <title>OverText</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.4.0/css/select.dataTables.min.css"> <!-- used for enabling shift+ multi-select-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/select/1.4.0/js/dataTables.select.min.js"></script> <!-- used for enabling shift+ multi-select-->
+  <style>
+
+    b{
+      opacity: 0.25;
+    }
+
+    .left.side.th {
+      border-left: none;
+    }
+
+    .left.side.td {
+      border-left: none;
+    }
+
+    .pretd {
+      text-align:right;
+    }
+
+    .entitytd {
+      text-align:center;
+    }
+
+    .posttd {
+      text-align:left;
+    }
+
+    .preth {
+      text-align:right;
+    }
+
+    .entityth {
+      text-align:center;
+    }
+
+    .postth {
+      text-align:left;
+    }
+
+    .yes {
+      border-bottom: solid 4px #0000ff;
+    }
+
+    .no {
+      border-bottom: dotted 1px #0000f0;
+    }
+
+
+    th {
+      border-left: solid 4px #f0f;
+      border-bottom:solid 4px #f0f;
+      font-size:1.35em;
+      line-height:1.15;
+    }
+
+    td {
+      border-left: solid 4px #f0f;
+      margin:0;
+      padding:0;
+      font-size:1.35em;
+      line-height:1.15;
+    }
+
+    table.dataTable tbody tr.selected > * {
+      box-shadow: inset 0 0 0 9999px yellow;
+      color: black;
+    }
+
+    table.dataTable {
+      width:50%;
+    }
+
+    table.dataTable.hover > tbody > tr.selected:hover > *, table.dataTable.display > tbody > tr.selected:hover > * {
+      box-shadow: inset 0 0 0 9999px yellow;
+    }
+
+    caption {
+      font-size:3.5em;
+      font-weight:bold;
+      padding-bottom:30px;
+    }
+
+    #help {
+      color:#ffffff !important; 
+      margin-left: 3px;
+      position: absolute; 
+      top: 50%; 
+      -ms-transform: translateY(-50%); 
+      transform: translateY(-50%);
+    }
+
+    #semantic {
+      float: left;
+    }
+
+    .overlay {
+      position: fixed;
+      display: none;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0,0,0,0.8);
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    .overlay_text{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: 20px;
+      color: white;
+      transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+    }
+
+    table.dataTable.compact thead th,
+    table.dataTable.compact thead td {
+      padding: 0px 17px;
+      font-size:2em;
+    }
+    table.dataTable.compact tfoot th,
+    table.dataTable.compact tfoot td {
+      padding: 4px;
+      font-size:2em;
+    }
+    table.dataTable.compact tbody th,
+    table.dataTable.compact tbody td {
+      padding: 0px;
+      font-size:2em;
+    }
+
+    .ui.tiny.button:focus{filter: brightness(75%);}
+
+  </style>
+</head>
+
+<body>
+  <div class="ui fixed inverted menu">
+    <div class="ui icon" data-tooltip={{ num_entities|string }} data-position="bottom left" data-variation="basic">
+    <i class="large question circle outline icon" id="help"></i>
+    </div>
+    <div class="ui container">
+      <a href="/" class="header item">
+        OverText
+      </a>
+    </div>
+  </div>
+  
+  {% for i in range(entities_1|length) %}
+  <div style="margin-top: 80px; width: 100% !important;" class="ui container">
+    <div class="ui grid">
+      <div class="fourteen wide column">
+        <table id="sentenceTable{{ i }}" class="hover nowrap compact" style="float: left; width:47%">
+            <caption>{{ entities_1[i] }}: {{ totals_1[i] }} sentences, median length {{ mlens_1[i] }} words</caption>
+            <thead>
+              <tr>
+                <th class="left side th">source</th>
+                <th class="preth pre">pre</th>
+                <th class="entityth">entity</th>
+                <th class="postth post">post</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for sentence in sentence_list %}
+                {% if sentence.entity == entities_1[i] %}
+                <tr>
+                  <td class="left side td {{ sentence.slam }}">{{ sentence.source }}</td>
+                  <td class="pretd pre {{ sentence.slam }}">{{ sentence.pre }}</td>
+                  <td class="entitytd entity {{ sentence.slam }}" width=9%>{{ sentence.entity }}</td>
+                  <td class="posttd post {{ sentence.slam }}">{{ sentence.post }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <table id="sentenceTable2 {{ i }}" class="hover nowrap compact" style="float: right; width: 47%">
+            <caption>{{ entities_2[i] }}: {{ totals_2[i] }} sentences, median length {{ mlens_2[i] }} words</caption>
+            <thead>
+              <tr>
+                <th class="left side th">source</th>
+                <th class="preth pre">pre</th>
+                <th class="entityth">entity</th>
+                <th class="postth post">post</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for sentence in sentence_list2 %}
+                {% if sentence.entity == entities_2[i] %}
+                <tr>
+                  <td class = "left side td {{ sentence.slam }}">{{ sentence.source }}</td>
+                  <td class="pretd pre {{ sentence.slam }}">{{ sentence.pre }}</td>
+                  <td class="entitytd entity {{ sentence.slam }}" width=9%>{{ sentence.entity }}</td>
+                  <td class="posttd post {{ sentence.slam }}">{{ sentence.post }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+      </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+
+    
+
+
+  <script>
+
+    
+
+    $(document).ready(function () {
+      for (let i = 0; i < entities_1.length; i++) {
+        var table = $('#sentenceTable${i}').DataTable({
+          paging: false,
+          info: false,
+          select: {
+            style: 'multi+shift',
+            selector: 'td'
+          },
+          stateSave: true,
+          // scrollX: true, cannot use because it causes header-body misalignment, use the following instead
+          initComplete: function (settings, json) {  // Fix misalignment between header and body
+        $("#sentenceTable${i}").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");            
+      },
+      columnDefs: [
+        {
+            targets: 0,
+            visible: false,
+            searchable: false
+        },
+        {
+            targets: 1,
+            orderable: false
+        },
+        {
+            targets: 2,
+            className: 'dt-right'
+        },
+        {
+            targets: 3,
+            className: 'dt-center'
+        },
+        {
+            targets: Array.from(new Array($('#jinja_data').data().first), (x, i) => i + $('#jinja_data').data().meta),
+            visible: false
+        }
+        ]
+        });
+        var table2 = $('#sentenceTable2${i}').DataTable({
+          paging: false,
+          info: false,
+          select: {
+            style: 'multi+shift',
+            selector: 'td'
+          },
+          stateSave: true,
+          // scrollX: true, cannot use because it causes header-body misalignment, use the following instead
+          initComplete: function (settings, json) {  // Fix misalignment between header and body
+        $("#sentenceTable2${i}").wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");            
+      },
+      columnDefs: [
+        {
+            targets: 0,
+            visible: false,
+            searchable: false
+        },
+        {
+            targets: 1,
+            orderable: false
+        },
+        {
+            targets: 2,
+            className: 'dt-right'
+        },
+        {
+            targets: 3,
+            className: 'dt-center'
+        },
+        {
+            targets: Array.from(new Array($('#jinja_data').data().first), (x, i) => i + $('#jinja_data').data().meta),
+            visible: false
+        }
+        ]
+        }}
+      }
+    );
+
+  </script>
+
+</body>
+</html>

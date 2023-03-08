@@ -1,0 +1,11 @@
+youtube_env/
+env-sim/
+instance/
+static/
+
+out
+*.swp
+__pycache__/
+.DS_Store
+tmp
+*.bin

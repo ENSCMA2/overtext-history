@@ -1,0 +1,246 @@
+[
+	{
+		"title": "El Progreso",
+		"year": 1915,
+		"dates": ["October 10", "October 17", "October 24", "December 3"],
+		"category": "newspaper",
+		"authors": ["Maurice Nessim", "Meyer Benadrete", "Maurice Hexter"],
+		"source": "https://www.nli.org.il/en/newspapers/epo",
+		"tags": ["wwi", "news", "english_section"]
+	},
+	{
+		"title": "El Progreso",
+		"year": 1919,
+		"dates": ["December 2", "December 5"],
+		"category": "newspaper",
+		"authors": [],
+		"source": "https://www.nli.org.il/en/newspapers/epo",
+		"tags": ["wwi", "news", "english_section"]
+	},
+	{
+		"title": "Erica",
+		"year": 1996,
+		"category": "essay",
+		"authors": ["Rebecca Camhi Fromer"],
+		"source": " Sephardic-American Voices: Two Hundred Years of a Literary Legacy, edited by Diane Matza, p. 221-225",
+		"tags": ["wwii", "essays", "by_women"]
+	},
+	{
+		"title": "Kahn (Esther) Interview",
+		"year": 2016,
+		"dates": ["November 7"],
+		"category": "interview",
+		"authors": ["Nancy Blase"],
+		"source": "https://digitalcollections.lib.washington.edu/digital/collection/ohc/id/3034/",
+		"tags": ["wwi", "interviews"]
+	},
+	{
+		"title": "Farewell to Salonica",
+		"year": 1946,
+		"category": "book",
+		"authors": ["Leon Sciaky"],
+		"source": "https://www.hauspublishing.com/product/farewell-to-salonica/",
+		"tags": ["wwi", "books"]
+	},
+	{
+		"title": "Calvo (Fortuna) Interview",
+		"year": 1976,
+		"dates": ["February 9"],
+		"category": "interview",
+		"authors": ["Fannie Roberts", "Adina Russak"],
+		"source": "https://digitalcollections.lib.washington.edu/digital/collection/ohc/id/24/",
+		"tags": ["wwi", "interviews"]
+	},
+	{
+		"title": "Survivors and Pieces of Glass",
+		"year": 1997,
+		"category": "essay",
+		"authors": ["Miriam Israel Moses"],
+		"source": "Jewish American Literature: A Norton Anthology, edited by Jules Chametzky, p. 1112-1120",
+		"tags": ["wwii", "essays", "book_excerpts", "by_women"]
+	},
+	{
+		"title": "I Remember Rhodes",
+		"year": 1987,
+		"category": "book",
+		"authors": ["Rebecca Amato Levy"],
+		"source": "https://www.amazon.com/Remember-Rhodes-Rebecca-Amato-Levy/dp/0872031306",
+		"tags": ["wwi", "books", "by_women"]
+	},
+	{
+		"title": "If I Did Not Believe in You",
+		"year": 2019,
+		"category": "poem",
+		"authors": ["Nitsa Dori"],
+		"source": "Poetry of the Holocaust: An Anthology, edited by Marian de Vooght and Jean Boase-Beier, p. 194",
+		"tags": ["wwii", "poems", "by_women"]
+	},
+	{
+		"title": "Inshallah: In Pursuit of My Father's Youth",
+		"year": 2019,
+		"category": "book",
+		"authors": ["Viviane Wayne"],
+		"source": "https://www.amazon.com/Inshallah-Pursuit-Fathers-Viviane-2002-02-02/dp/B01K16E8LE",
+		"tags": ["wwi", "books", "by_women"]
+	},
+	{
+		"title": "La Tia Estambolia",
+		"year": 1997,
+		"category": "essay",
+		"authors": ["Emma Adatto Schlesinger"],
+		"source": "Jewish American Literature: A Norton Anthology, edited by Jules Chametzky, p. 671-677",
+		"tags": ["wwi", "essays", "by_women"]
+	},
+	{
+		"title": "La Vara",
+		"year": 1936,
+		"dates": ["July 3", "July 10", "July 17", "July 24", "July 31"],
+		"category": "newspaper",
+		"authors": [],
+		"source": "https://www.nli.org.il/en/newspapers/lavaranyc",
+		"tags": ["wwii", "news"]
+	},
+	{
+		"title": "La Vara",
+		"year": 1942,
+		"dates": ["November 27", "December 4", "December 11", "December 18", "December 25"],
+		"category": "newspaper",
+		"authors": [],
+		"source": "https://www.nli.org.il/en/newspapers/lavaranyc",
+		"tags": ["wwii", "news"]
+	},
+	{
+		"title": "Varon (Laura) Interview",
+		"year": 1989,
+		"dates": ["January 17"],
+		"category": "interview",
+		"authors": ["Vera Federman"],
+		"source": "https://digitalcollections.lib.washington.edu/digital/collection/ohc/id/267/",
+		"tags": ["wwii", "interviews"]
+	},
+	{
+		"title": "Marguerite: Journey of a Sephardic Woman",
+		"year": 1997,
+		"dates": ["August 10"],
+		"category": "book",
+		"authors": ["Gloria Sananes Stein"],
+		"source": "https://www.amazon.com/Marguerite-Sephardic-Gloria-Sananes-Stein/dp/1883294525",
+		"tags": ["wwi", "books", "by_women"]
+	},
+	{
+		"title": "Amira (Regina) Interview",
+		"year": 2018,
+		"dates": ["September 21"],
+		"category": "interview",
+		"authors": ["Susan Weingarten", "Ruth Sassoon"],
+		"source": "https://digitalcollections.lib.washington.edu/digital/collection/ohc/id/3138/",
+		"tags": ["wwii", "interviews"]
+	},
+	{
+		"title": "Revelation",
+		"year": 1996,
+		"category": "poem",
+		"authors": ["Linda Ashear"],
+		"source": " Sephardic-American Voices: Two Hundred Years of a Literary Legacy, edited by Diane Matza, p. 302-305",
+		"tags": ["wwii", "poems", "by_women"]
+	},
+	{
+		"title": "Berro (Rosa Scharhon) Interview",
+		"year": 1974,
+		"category": "interview",
+		"authors": ["Fannie Roberts"],
+		"source": "https://digitalcollections.lib.washington.edu/digital/collection/ohc/id/352/",
+		"tags": ["wwii", "interviews"]
+	},
+	{
+		"title": "Saving the Puffins: Puffin Rhapsody",
+		"year": 1996,
+		"category": "poem",
+		"authors": ["Rosaly DeMaios Roffman"],
+		"source": " Sephardic-American Voices: Two Hundred Years of a Literary Legacy, edited by Diane Matza, p. 300",
+		"tags": ["wwii", "poems", "by_women"]
+	},
+	{
+		"title": "Silence",
+		"year": 2019,
+		"category": "poem",
+		"authors": ["Rita Gabbai-Simantov"],
+		"source": "Poetry of the Holocaust: An Anthology, edited by Marian de Vooght and Jean Boase-Beier, p. 134",
+		"tags": ["wwii", "poems", "by_women"]
+	},
+	{
+		"title": "Sometimes People Think",
+		"year": 1996,
+		"category": "poem",
+		"authors": ["Rosaly DeMaios Roffman"],
+		"source": " Sephardic-American Voices: Two Hundred Years of a Literary Legacy, edited by Diane Matza, p. 299",
+		"tags": ["wwii", "poems", "by_women"]
+	},
+	{
+		"title": "Suspect Fashion",
+		"year": 1996,
+		"category": "poem",
+		"authors": ["Henrietta Bensussen"],
+		"source": " Sephardic-American Voices: Two Hundred Years of a Literary Legacy, edited by Diane Matza, p. 162-163",
+		"tags": ["wwii", "poems", "by_women"]
+	},
+	{
+		"title": "Tell Us No More Train Stories",
+		"year": 2019,
+		"category": "poem",
+		"authors": ["Nitsa Dori"],
+		"source": "Poetry of the Holocaust: An Anthology, edited by Marian de Vooght and Jean Boase-Beier, p. 225",
+		"tags": ["wwii", "poems", "by_women"]
+	},
+	{
+		"title": "The House of Jacob",
+		"year": 2003,
+		"dates": ["September 1"],
+		"category": "book",
+		"authors": ["Sylvie Courtine-Denamy"],
+		"source": "https://www.amazon.com/House-Jacob-Sylvie-Courtine-Denamy/dp/B005M4ZHN4",
+		"tags": ["wwi", "books", "by_women"]
+	},
+	{
+		"title": "The Inquiry",
+		"year": 1996,
+		"category": "play",
+		"authors": ["Rebecca Camhi Fromer"],
+		"source": " Sephardic-American Voices: Two Hundred Years of a Literary Legacy, edited by Diane Matza, p. 225-232",
+		"tags": ["wwii", "plays", "by_women"]
+	},
+	{
+		"title": "The Juderia: A Holocaust Survivor's Tribute to the Jewish Community of Rhodes",
+		"year": 1999,
+		"dates": ["March 30"],
+		"category": "book",
+		"authors": ["Laura Varon"],
+		"source": "https://www.amazon.com/Juderia-Holocaust-Survivors-Tribute-Community/dp/0275963462",
+		"tags": ["wwii", "books", "by_women"]
+	},
+	{
+		"title": "The Mystical Child",
+		"year": 1996,
+		"category": "poem",
+		"authors": ["Rosaly DeMaios Roffman"],
+		"source": " Sephardic-American Voices: Two Hundred Years of a Literary Legacy, edited by Diane Matza, p. 301-302",
+		"tags": ["wwii", "poems", "by_women"]
+	},
+	{
+		"title": "They All Went",
+		"year": 2019,
+		"category": "poem",
+		"authors": ["Flory Jagoda"],
+		"source": "Poetry of the Holocaust: An Anthology, edited by Marian de Vooght and Jean Boase-Beier, p. 199",
+		"tags": ["wwii", "poems", "by_women"]
+	},
+	{
+		"title": "Israel (Victoria) Interview",
+		"year": 1972,
+		"dates": ["December 18"],
+		"category": "interview",
+		"authors": ["Fannie Roberts", "Karyl Winn"],
+		"source": "https://digitalcollections.lib.washington.edu/digital/collection/ohc/id/398/rec/2",
+		"tags": ["wwi", "interviews"]
+	}
+]
