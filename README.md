@@ -1,8 +1,6 @@
-# OverText
+# OverText<sub>history</sub>
 
-Based on:
-
-<https://overtext.eecs.umich.edu/>
+Based on OverText WIP by Jonathan Kummerfelt
 
 
 ## Setup
