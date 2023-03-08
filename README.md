@@ -53,7 +53,7 @@ flask run
 
 Then go to <http://127.0.0.1:5000/>  
 
-If that doesn't work check, the URL given in the terminal by the command above. The most likely thing is that a different port number was chosen. If you see an import error, `pip install` the package that is said to be missing, and try `flask run` again (and repeat for each import error until it works).  
+If that doesn't work, check the URL given in the terminal by the command above. The most likely thing is that a different port number was chosen. If you see an import error, `pip install` the package that is said to be missing, and try `flask run` again (and repeat for each import error until it works).  
 
 To stop the server, use CTRL+C.
 
