@@ -1,6 +1,6 @@
 # OverText<sub>history</sub>
 
-Based on OverText WIP by Jonathan Kummerfelt
+Based on OverText WIP by Jonathan Kummerfeld
 
 
 ## Setup
